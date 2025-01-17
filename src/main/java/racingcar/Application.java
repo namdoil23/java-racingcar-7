@@ -1,7 +1,5 @@
 package racingcar;
 
-import camp.nextstep.edu.missionutils.Console;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -23,17 +21,14 @@ public class Application {
                 if (!NameVaildator.isNameDuplicate(carName)) {
                     validCarNames.add(carName);
                 } else {
-                    System.out.println("중복된 이름은 사용할 수 없습니다. :" + carName);
+                    throw new IllegalArgumentException("중복된 이름은 사용할 수 없습니다. :" + carName);
                 }
             } else {
-                System.out.println("유효하지 않은 이름입니다. :" + carName);
+                throw new IllegalArgumentException("유효하지 않은 이름입니다. :" + carName);
             }
         }
 
         // 유효한 자동차 이름 출력
-        if (validCarNames.isEmpty()) {
-            throw new IllegalArgumentException("유효한 자동차 이름이 없습니다.");
-        }
         System.out.println("유효한 자동차 이름: " + String.join(", ", validCarNames));
 
         // 시도할 횟수 입력
@@ -59,8 +54,11 @@ public class Application {
 
         // 결과 출력
         for (Map.Entry<String, StringBuilder> entry : carResults.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+            System.out.println(entry.getKey() + " : " + entry.getValue());
         }
+
+        List<String> winners = Winner.champoin(carResults);
+        System.out.println("최종 우승자 : " + String.join(", ", winners));
     }
 }
 
